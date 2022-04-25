@@ -1,0 +1,15 @@
+FROM node:16-alpine
+
+ENV RUN_USER node
+ENV RUN_GROUP node
+
+WORKDIR /opt/app
+
+COPY package.json .
+RUN npm install
+
+COPY --chown=${RUN_USER}:${RUN_GROUP} . .
+
+USER node
+
+CMD ["npm", "run", "start"]
